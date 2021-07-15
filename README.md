@@ -1,1 +1,3 @@
-# django-starter
+- python version : 3.8.10
+- conda activate django-starter
+- docker build -t django-starter:0.1 .

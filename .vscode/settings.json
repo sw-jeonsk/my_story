@@ -1,0 +1,24 @@
+{
+    "python.pythonPath": "/opt/anaconda3/envs/django-starter/bin/python",
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "100"
+    ],
+    "editor.formatOnSave": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint-flask",
+        "--extension-pkg-whitelist=numpy",
+       "--extension-pkg-whitelist=cv2",
+       "--max-line-length=150",
+       "--disable=C0111",
+       "--disable=C0103",
+       "--disable=C0326",
+       "--disable=C0303"
+    ]
+}
