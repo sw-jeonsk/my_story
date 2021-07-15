@@ -5,6 +5,10 @@
         "--line-length",
         "100"
     ],
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "none",
+        "unused-argument": "none"
+    },
     "editor.formatOnSave": true,
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
@@ -19,6 +23,9 @@
        "--disable=C0111",
        "--disable=C0103",
        "--disable=C0326",
-       "--disable=C0303"
+       "--disable=C0303",
+       "--disable=unused-import,unused-argument"
+    ],
+    "python.analysis.extraPaths": [
     ]
 }

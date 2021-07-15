@@ -1,11 +1,16 @@
 version: "3"
 services:
-    app: 
+    app:
         build:
             context: .
         ports:
             - "8000:8000"
-        volumes: 
+        volumes:
             - ./app:/app
         command: >
             sh -c "python manage.py runserver 0.0.0.0:8000"
+        environment:
+            DB_NAME: "django-starter-db"
+            DB_USER: "postgres"
+            DB_PASSWORD: "bizmyhand"
+            DB_HOST: "host.docker.internal"
