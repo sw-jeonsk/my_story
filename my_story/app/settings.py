@@ -158,3 +158,6 @@ PASSWORD_HASHERS = [
 AUTH_USER_MODEL = "writer.Writer"
 
 VERSION = "v1"
+
+
+REST_FRAMEWORK = {"EXCEPTION_HANDLER": "my-story.utils.custom_exception.custom_exception_handler"}
