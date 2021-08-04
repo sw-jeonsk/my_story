@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .settings import VERSION
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("user/", include("user.urls")),  # 해당 라인을 추가
+    path("api/{}/writer/".format(VERSION), include("writer.urls")),  # 해당 라인을 추가
 ]
