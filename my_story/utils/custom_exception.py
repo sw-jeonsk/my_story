@@ -12,4 +12,5 @@ def custom_exception_handler(exc, context):
         response.data["request"] = context["request"].data
         if hasattr(exc, "detail_code"):
             response.data["detail_code"] = exc.detail_code
+
     return response
