@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
 from utils.writer_manager import WriterManager
 from django.utils.translation import gettext_lazy as _
-from utils.custom_field import hex_uuid
+from utils.custom_field import hex_uuid, CaseLowerEmailField
 
 
 class Writer(AbstractBaseUser, PermissionsMixin):
@@ -16,7 +16,7 @@ class Writer(AbstractBaseUser, PermissionsMixin):
         editable=False,
         max_length=255,
     )
-    email: str = models.EmailField(
+    email: str = CaseLowerEmailField(
         _("이메일"),
         max_length=64,
         unique=True,
