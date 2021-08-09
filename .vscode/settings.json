@@ -24,6 +24,7 @@
        "--disable=C0103",
        "--disable=C0326",
        "--disable=C0303",
+       "--disable=W0223",
        "--disable=unused-import,unused-argument"
     ],
     "python.analysis.extraPaths": [
