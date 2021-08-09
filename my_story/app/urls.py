@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .settings import VERSION
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from writer.views import WriterLogInView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/{}/writer/".format(VERSION), include("writer.urls")),  # 해당 라인을 추가
+    path("api/{}/writer".format(VERSION), include("writer.urls"), name="Writer API"),  # 해당 라인을 추가
+    path("api/{}/login".format(VERSION), WriterLogInView.as_view(), name="token_obtain_pair"),
+    path("api/{}/refresh".format(VERSION), TokenRefreshView.as_view(), name="token_refresh"),
 ]

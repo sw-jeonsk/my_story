@@ -12,7 +12,7 @@ application = get_wsgi_application()
 
 class TestWriterSingle(TestCase):
     def setUp(self) -> None:
-        self.email_duplicate_api = "/api/{}/writer/signup/".format(VERSION)
+        self.email_duplicate_api = "/api/{}/writer/email-check".format(VERSION)
         return super().setUp()
 
     def test_email_duplicate(self):

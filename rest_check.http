@@ -1,0 +1,24 @@
+POST http://localhost:8000/api/v1/writer/
+Content-Type: application/json
+
+{
+    "name" : "jss",
+    "email" : "swenginejska@gmail.com",
+    "password" : "ain19009!"
+
+}
+
+
+###
+GET http://localhost:8000/api/v1/writer/54710fe40ace468bbeb7b1be9e3b7e04
+
+
+###
+
+POST http://localhost:8000/api/token/
+Content-Type: application/json
+
+{    "email" : "swenginejska@gmail.com",
+    "password" : "ain19009!"
+
+}

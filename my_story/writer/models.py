@@ -17,7 +17,10 @@ class Writer(AbstractBaseUser, PermissionsMixin):
         max_length=255,
     )
     email: str = models.EmailField(
-        _("이메일"), max_length=64, unique=True, help_text="writer login ID"
+        _("이메일"),
+        max_length=64,
+        unique=True,
+        help_text="writer login ID",
     )
     name: str = models.CharField(
         _("이름"), max_length=30, help_text="user name (firstname + second_name)"
