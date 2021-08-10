@@ -1,4 +1,5 @@
 import os
+import pdb
 from django.test import TestCase
 from writer.models import Writer
 from app.settings import VERSION
@@ -134,6 +135,83 @@ class TestWriterSignUp(TestCase):
                 "name": "jsk",
                 "email": "qaz0169@naver.com",
                 "password": "123asdfasdf !",
+            },
+        )
+        print(response.status_code)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    def test_signup_no_email_error(self):
+        """이메일 파라미터 없을때 실패"""
+        response = self.client.post(
+            self.signup_api,
+            {
+                "name": "jsk",
+                "password": "123asdfasdf!",
+            },
+        )
+        print(response.status_code)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    def test_signup_empty_email_error(self):
+        """이메일 파라미터 빈값 실패"""
+        response = self.client.post(
+            self.signup_api,
+            {
+                "name": "jsk",
+                "email": "",
+                "password": "123asdfasdf!",
+            },
+        )
+        print(response.status_code)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    def test_signup_no_password_error(self):
+        """패스워드 파라미터 없을때 실패"""
+        response = self.client.post(
+            self.signup_api,
+            {
+                "name": "jsk",
+                "email": "qaz0169@naver.com",
+            },
+        )
+        print(response.status_code)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    def test_signup_empty_password_error(self):
+        """패스워드 파라미터 빈값 실패"""
+        response = self.client.post(
+            self.signup_api,
+            {"name": "jsk", "email": "qaz0169@naver.com", "password": ""},
+        )
+        print(response.status_code)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    def test_signup_no_name_error(self):
+        """이름 파라미터 없을때 실패"""
+        response = self.client.post(
+            self.signup_api,
+            {
+                "email": "qaz0169@naver.com",
+                "password": "123asdfasdf!",
+            },
+        )
+        print(response.status_code)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    def test_signup_empty_name_error(self):
+        """이름 파라미터 없을때 실패"""
+        response = self.client.post(
+            self.signup_api,
+            {
+                "name": "",
+                "email": "qaz0169@naver.com",
+                "password": "123asdfasdf!",
             },
         )
         print(response.status_code)

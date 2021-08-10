@@ -8,7 +8,15 @@ from .models import Writer  # User model import
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-
+from drf_yasg.utils import swagger_auto_schema
+from utils.exceptions import (
+    EmailRequiredException,
+    EmailValidateException,
+    EmailDuplicateException,
+    NameValidateException,
+    PasswordRequiredException,
+    NameRequiredException,
+)
 
 # Create your views here.
 
@@ -27,8 +35,20 @@ class WriterViewSet(viewsets.ModelViewSet):  # ModelViewSet 활용
         serializer = self.get_serializer(writer)
         return Response(serializer.data)
 
+    @swagger_auto_schema(
+        operation_description="회원가입",
+        responses={
+            400: EmailValidateException.as_md()
+            + EmailDuplicateException.as_md()
+            + NameValidateException.as_md()
+        },
+    )
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
+
+        # 요청 데이터의 필수로 필요한 데이터에 대한 예외처리
+        self.validate_field_check(request.data)
+
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
@@ -38,6 +58,15 @@ class WriterViewSet(viewsets.ModelViewSet):  # ModelViewSet 활용
             status=status.HTTP_201_CREATED,
             headers=headers,
         )
+
+    def validate_field_check(self, data):
+
+        if not "email" in data.keys() or len(data["email"]) < 1:
+            raise EmailRequiredException
+        elif not "password" in data.keys() or len(data["password"]) < 1:
+            raise PasswordRequiredException
+        elif not "name" in data.keys() or len(data["name"]) < 1:
+            raise NameRequiredException
 
     def get_permissions(self):
         try:

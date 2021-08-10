@@ -26,7 +26,6 @@ class TestWriterGet(TestCase):
         self.response = self.client.post(
             self.login_api, {"email": self.email, "password": self.password}
         )
-
         return super().setUp()
 
     def test_get_200_ok(self):

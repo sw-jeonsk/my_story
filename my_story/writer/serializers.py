@@ -1,14 +1,5 @@
-import re
-import pdb
-from utils.exceptions import PasswordValidateException
 from rest_framework import serializers  # serializer import
 from .models import Writer  # 선언한 모델 import
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
-from utils.exceptions import EmailValidateException, NameValidateException, EmailDuplicateException
-from django.contrib.auth import password_validation
-from django.contrib.auth.hashers import make_password
-from .validators.validate_required import validate_required
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
@@ -18,27 +9,7 @@ class WriterSerializer(serializers.ModelSerializer):
         fields = ["id", "email", "password", "name", "created_at", "updated_at"]
         extra_kwargs = {
             "password": {"write_only": True},
-            "email": {"validators": [validate_required]},
         }
-
-    def validate_email(self, value):
-        email = Writer.objects.filter(email=value)
-        if email.exists():
-            raise EmailDuplicateException
-        return value
-
-    def validate_name(self, value):
-
-        if len(value) > 1:
-            return value
-        else:
-            raise NameValidateException
-
-    def validate_password(self, value):
-        regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$"
-        if not bool(re.match(regex, value)):
-            raise PasswordValidateException
-        return make_password(value)
 
 
 class WriterLoginSerializer(TokenObtainPairSerializer):

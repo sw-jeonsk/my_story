@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "writer",
     "diary",
     "rest_framework",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
