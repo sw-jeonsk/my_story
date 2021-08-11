@@ -17,6 +17,7 @@ from utils.exceptions import (
     PasswordRequiredException,
     NameRequiredException,
 )
+from .validators import validate_required_check
 
 # Create your views here.
 
@@ -41,13 +42,13 @@ class WriterViewSet(viewsets.ModelViewSet):  # ModelViewSet 활용
             400: EmailValidateException.as_md()
             + EmailDuplicateException.as_md()
             + NameValidateException.as_md()
+            + EmailRequiredException.as_md()
+            + PasswordRequiredException.as_md()
+            + NameRequiredException.as_md()
         },
     )
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
-
-        # 요청 데이터의 필수로 필요한 데이터에 대한 예외처리
-        self.validate_field_check(request.data)
 
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -58,15 +59,6 @@ class WriterViewSet(viewsets.ModelViewSet):  # ModelViewSet 활용
             status=status.HTTP_201_CREATED,
             headers=headers,
         )
-
-    def validate_field_check(self, data):
-
-        if not "email" in data.keys() or len(data["email"]) < 1:
-            raise EmailRequiredException
-        elif not "password" in data.keys() or len(data["password"]) < 1:
-            raise PasswordRequiredException
-        elif not "name" in data.keys() or len(data["name"]) < 1:
-            raise NameRequiredException
 
     def get_permissions(self):
         try:
@@ -86,9 +78,11 @@ class WriterLogInView(TokenObtainPairView):
         post 오버라이드 해서 유저가 있을때, 패스워드가 다를 때 예외처리 구분
         """
         serializer = self.get_serializer(data=request.data)
+
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
+
             raise InvalidToken(e.args[0])
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)

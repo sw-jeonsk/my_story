@@ -1,3 +1,4 @@
+from utils.response_detail import ResponseDetail
 import os
 import pdb
 from django.test import TestCase
@@ -11,7 +12,7 @@ class TestWriterGet(TestCase):
         # 회원가입
         self.writer_api = "/api/{}/writer".format(VERSION)
         self.login_api = "/api/{}/login".format(VERSION)
-        self.email = "qaz0169@naver.com"
+        self.email = "qaz0169aa@naver.com"
         self.password = "ain190409!"
 
         self.client.post(
@@ -26,6 +27,7 @@ class TestWriterGet(TestCase):
         self.response = self.client.post(
             self.login_api, {"email": self.email, "password": self.password}
         )
+
         return super().setUp()
 
     def test_get_200_ok(self):
@@ -43,7 +45,9 @@ class TestWriterGet(TestCase):
         writer_id = self.response.json()["id"]
 
         response = self.client.get(self.writer_api + "/{}".format(writer_id))
+
         self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PERMISSION_VALIDATE)
 
     def test_get_401_wrong_authorization(self):
         """잘못된 토큰 처리"""
@@ -54,3 +58,4 @@ class TestWriterGet(TestCase):
 
         response = self.client.get(self.writer_api + "/{}".format(writer_id), **header)
         self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PERMISSION_VALIDATE)

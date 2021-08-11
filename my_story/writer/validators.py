@@ -1,18 +1,19 @@
 import re
 from utils.exceptions import (
-    EmailRequiredException,
+    EmailValidateException,
     NameValidateException,
     PasswordValidateException,
 )
 from django.contrib.auth.hashers import make_password
+import pdb
 
 
 def validate_email(email):
-    email_reg = r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+    email_reg = r"[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[a-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?"
     regex = re.compile(email_reg)
 
     if not regex.match(email):
-        raise EmailRequiredException
+        raise EmailValidateException
     return email
 
 
@@ -27,3 +28,9 @@ def validate_password(password):
     if not bool(re.match(regex, password)):
         raise PasswordValidateException
     return make_password(password)
+
+
+def validate_required_check(data: dict, check_item: tuple):
+
+    if not check_item[0] in data.keys() or len(data[check_item[0]]) < 1:
+        raise check_item[1]

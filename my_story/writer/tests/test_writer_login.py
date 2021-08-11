@@ -3,6 +3,7 @@ import pdb
 from django.test import TestCase
 from writer.models import Writer
 from app.settings import VERSION
+from utils.response_detail import ResponseDetail
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 
@@ -40,14 +41,14 @@ class TestWriterLogin(TestCase):
     def test_login_400_no_email(self):
         """이메일 파라미터 없음 에러 처리"""
         response = self.client.post(self.login_api, {"password": self.password})
-        print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_REQUIRED)
 
     def test_login_400_no_password(self):
         """비밀번호 파라미터 없음 에러 처리"""
         response = self.client.post(self.login_api, {"email": self.email})
-        print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_REQUIRED)
 
     def test_login_401_does_not_exist_email(self):
         """없는 이메일 계정 에러 처리"""
@@ -55,6 +56,7 @@ class TestWriterLogin(TestCase):
         response = self.client.post(self.login_api, {"email": email, "password": self.password})
         print(response.json())
         self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PERMISSION_VALIDATE)
 
     def test_login_401_wrong_password(self):
         """잘못된 패스워드"""
@@ -62,3 +64,4 @@ class TestWriterLogin(TestCase):
         response = self.client.post(self.login_api, {"email": self.email, "password": password})
         print(response.json())
         self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PERMISSION_VALIDATE)

@@ -1,6 +1,10 @@
+from utils.response_detail import ResponseDetail
+import re
 from rest_framework import serializers  # serializer import
 from .models import Writer  # 선언한 모델 import
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth.hashers import make_password
+from utils.exceptions import PasswordValidateException
 
 
 class WriterSerializer(serializers.ModelSerializer):
@@ -11,12 +15,18 @@ class WriterSerializer(serializers.ModelSerializer):
             "password": {"write_only": True},
         }
 
+    def validate_password(self, password):
+        regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$"
+        if not bool(re.match(regex, password)):
+            raise PasswordValidateException
+        return make_password(password)
+
 
 class WriterLoginSerializer(TokenObtainPairSerializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True)
 
-    default_error_messages = {"no_active_account": "이메일 또는 패스워드가 잘못되었습니다."}
+    default_error_messages = {"no_active_account": ResponseDetail.LOGIN_VALIDATE}
 
     @classmethod
     def get_token(cls, user):

@@ -1,4 +1,5 @@
 from rest_framework.exceptions import APIException
+from .response_detail import ResponseDetail
 
 
 class Exception(APIException):
@@ -16,41 +17,41 @@ class Exception(APIException):
 
 class EmailRequiredException(Exception):
     status_code = 400
-    detail_code = 400
-    default_detail = "이메일 필수입니다."
+    detail_code = "required"
+    default_detail = ResponseDetail.EMAIL_REQUIRED
 
 
 class NameRequiredException(Exception):
     status_code = 400
-    detail_code = 400
-    default_detail = "이름 필수입니다."
+    detail_code = "required"
+    default_detail = ResponseDetail.NAME_REQUIRED
 
 
 class PasswordRequiredException(Exception):
     status_code = 400
-    detail_code = 400
-    default_detail = "비밀번호 필수입니다."
+    detail_code = "required"
+    default_detail = ResponseDetail.PASSWORD_REQUIRED
 
 
 class EmailValidateException(Exception):
     status_code = 400
-    detail_code = 400
-    default_detail = "이메일 잘못되었습니다."
-
-
-class EmailDuplicateException(Exception):
-    status_code = 400
-    detail_code = 400
-    default_detail = "이메일 중복입니다."
+    detail_code = "error"
+    default_detail = ResponseDetail.EMAIL_VALIDATE
 
 
 class NameValidateException(Exception):
     status_code = 400
-    detail_code = 400
-    default_detail = "이름 잘못되었습니다."
+    detail_code = "error"
+    default_detail = ResponseDetail.NAME_VALIDATE
 
 
 class PasswordValidateException(Exception):
     status_code = 400
-    detail_code = 400
-    default_detail = "패스워드 잘못되었습니다."
+    detail_code = "error"
+    default_detail = ResponseDetail.PASSWORD_VALIDATE
+
+
+class EmailDuplicateException(Exception):
+    status_code = 400
+    detail_code = "duplicate"
+    default_detail = ResponseDetail.EMAIL_DUPLICATE

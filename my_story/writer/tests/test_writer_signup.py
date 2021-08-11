@@ -1,3 +1,4 @@
+from utils.response_detail import ResponseDetail
 import os
 import pdb
 from django.test import TestCase
@@ -38,6 +39,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_REQUIRED)
 
     def test_signup_email_error(self):
         """이메일 관련 에러"""
@@ -84,6 +86,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_VALIDATE)
 
     def test_signup_password_error_02(self):
         """패스워드 영문자로만 진행시 실패"""
@@ -98,6 +101,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_VALIDATE)
 
     def test_signup_password_error_03(self):
         """패스워드 영문자 + 특수문자로만 진행시 실패"""
@@ -112,6 +116,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_VALIDATE)
 
     def test_signup_password_error_04(self):
         """패스워드 숫자 + 특수문자로만 진행시 실패"""
@@ -126,6 +131,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_VALIDATE)
 
     def test_signup_password_error_05(self):
         """패스워드 공백 포함으로 진행시 실패"""
@@ -140,6 +146,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_VALIDATE)
 
     def test_signup_no_email_error(self):
         """이메일 파라미터 없을때 실패"""
@@ -152,6 +159,7 @@ class TestWriterSignUp(TestCase):
         )
         print(response.status_code)
         print(response.json())
+        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_REQUIRED)
         self.assertEqual(response.status_code, 400)
 
     def test_signup_empty_email_error(self):
@@ -167,6 +175,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_BLANK)
 
     def test_signup_no_password_error(self):
         """패스워드 파라미터 없을때 실패"""
@@ -179,6 +188,7 @@ class TestWriterSignUp(TestCase):
         )
         print(response.status_code)
         print(response.json())
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_REQUIRED)
         self.assertEqual(response.status_code, 400)
 
     def test_signup_empty_password_error(self):
@@ -190,6 +200,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_BLANK)
 
     def test_signup_no_name_error(self):
         """이름 파라미터 없을때 실패"""
@@ -203,6 +214,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.NAME_REQUIRED)
 
     def test_signup_empty_name_error(self):
         """이름 파라미터 없을때 실패"""
@@ -217,3 +229,4 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.NAME_BLANK)
