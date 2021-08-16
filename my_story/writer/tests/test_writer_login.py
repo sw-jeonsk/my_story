@@ -56,7 +56,7 @@ class TestWriterLogin(TestCase):
         response = self.client.post(self.login_api, {"email": email, "password": self.password})
         print(response.json())
         self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json()["detail"], ResponseDetail.PERMISSION_VALIDATE)
+        self.assertEqual(response.json()["detail"], ResponseDetail.UNAUTHORIZED_VALIDATE)
 
     def test_login_401_wrong_password(self):
         """잘못된 패스워드"""
@@ -64,4 +64,4 @@ class TestWriterLogin(TestCase):
         response = self.client.post(self.login_api, {"email": self.email, "password": password})
         print(response.json())
         self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json()["detail"], ResponseDetail.PERMISSION_VALIDATE)
+        self.assertEqual(response.json()["detail"], ResponseDetail.UNAUTHORIZED_VALIDATE)

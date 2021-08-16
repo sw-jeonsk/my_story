@@ -48,3 +48,7 @@ class WriterLoginSerializer(TokenObtainPairSerializer):
         data["refresh"] = str(refresh)
         data["access"] = str(refresh.access_token)
         return data
+
+
+class WriterEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)

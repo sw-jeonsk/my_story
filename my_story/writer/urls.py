@@ -5,6 +5,7 @@ from . import views  # views.py import
 router = routers.DefaultRouter()  # DefaultRouter 설정
 
 urlpatterns = [
-    path("", views.WriterViewSet.as_view({"post": "create"})),
-    path("/<str:pk>", views.WriterViewSet.as_view({"get": "retrieve"})),
+    path("", views.WriterView.as_view()),
+    path("/<str:pk>", views.WriterView.as_view()),
+    path("/email-check", views.EmailDuplicateView.as_view()),
 ]

@@ -15,7 +15,7 @@ def custom_exception_handler(exc, context):
         response.data["status_code"] = response.status_code
         response.data["request"] = context["request"].data
 
-        if response.status_code == status.HTTP_400_BAD_REQUEST:
+        if response.status_code in [status.HTTP_400_BAD_REQUEST, status.HTTP_404_NOT_FOUND]:
             if hasattr(exc, "detail_code"):
                 response.data["detail_code"] = exc.detail_code
             else:
@@ -33,7 +33,7 @@ def custom_exception_handler(exc, context):
         elif response.status_code == status.HTTP_401_UNAUTHORIZED:
             # case : 로그인할때,
             # case : token이 없거나 잘못됐을때,
-            response.data["detail"] = ResponseDetail.PERMISSION_VALIDATE
+            response.data["detail"] = ResponseDetail.UNAUTHORIZED_VALIDATE
             response.data["detail_code"] = "unauthorized"
 
     return response

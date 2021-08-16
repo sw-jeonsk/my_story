@@ -1,3 +1,4 @@
+from os import statvfs_result
 from rest_framework.exceptions import APIException
 from .response_detail import ResponseDetail
 
@@ -13,6 +14,12 @@ class Exception(APIException):
             self.detail_code,
             self.default_detail,
         )
+
+
+class Success(Exception):
+    status_code = 200
+    detail_code = "ok"
+    default_detail = ResponseDetail.OK
 
 
 class EmailRequiredException(Exception):
@@ -55,3 +62,15 @@ class EmailDuplicateException(Exception):
     status_code = 400
     detail_code = "duplicate"
     default_detail = ResponseDetail.EMAIL_DUPLICATE
+
+
+class UnauthorizedException(Exception):
+    status_code = 401
+    detail_code = "unauthorized"
+    default_detail = ResponseDetail.UNAUTHORIZED_VALIDATE
+
+
+class NotFoundWriterException(Exception):
+    status_code = 404
+    detail_code = "not_found"
+    default_detail = ResponseDetail.NOTFOUND_WRITER

@@ -2,6 +2,9 @@ from typing import Final
 
 
 class ResponseDetail(object):
+    # 200
+    OK: Final = "성공"
+    # 400
     EMAIL_REQUIRED: Final = "'email' 이 필드는 필수 항목입니다."
     NAME_REQUIRED: Final = "'name' 이 필드는 필수 항목입니다."
     PASSWORD_REQUIRED: Final = "'password' 이 필드는 필수 항목입니다."
@@ -17,4 +20,9 @@ class ResponseDetail(object):
     EMAIL_DUPLICATE: Final = "이메일 중복입니다."
 
     LOGIN_VALIDATE: Final = "이메일 또는 패스워드가 잘못되었습니다."
-    PERMISSION_VALIDATE: Final = "자격 권한에 문제가 있습니다."
+
+    # 401
+    UNAUTHORIZED_VALIDATE: Final = "자격 권한에 문제가 있습니다."
+
+    # 404
+    NOTFOUND_WRITER: Final = "찾을 수 없습니다."
