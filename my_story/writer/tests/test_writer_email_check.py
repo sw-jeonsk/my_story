@@ -27,9 +27,23 @@ class TestWriterSingle(TestCase):
         )
         return super().setUp()
 
-    def test_email_duplicate(self):
+    def test_email_200_ok(self):
+        """메일 중복 확인 테스트"""
+
+        response = self.client.post(self.email_duplicate_api, {"email": "test@a-in.co"})
+        print(response.json())
+        self.assertEqual(response.status_code, 200)
+
+    def test_email_400_duplicate(self):
         """메일 중복 확인 테스트"""
 
         response = self.client.post(self.email_duplicate_api, {"email": self.email})
         print(response.json())
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
+
+    def test_email_400_no_email(self):
+        """메일 파라미터 없음"""
+
+        response = self.client.post(self.email_duplicate_api)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)

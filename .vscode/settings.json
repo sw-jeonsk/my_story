@@ -27,8 +27,10 @@
        "--disable=W0223",
        "--disable=W0221",
        "--disable=W0622",
-       "--disable=unused-import,unused-argument"
+       "--disable=unused-import,unused-argument",
+       "--load-plugins=pylint_django",
+       "--disable=django-not-configured"
     ],
     "python.analysis.extraPaths": [
-    ]
+    ],
 }

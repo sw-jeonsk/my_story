@@ -37,7 +37,8 @@ class TestWriterGet(TestCase):
 
         header = {"HTTP_AUTHORIZATION": "Bearer {}".format(access)}
 
-        response = self.client.get(self.writer_api + "/{}".format(writer_id), **header)
+        response = self.client.get(self.writer_api + "?id={}".format(writer_id), **header)
+        print(response.json())
         self.assertEqual(response.status_code, 200)
 
     def test_get_404_no_writer(self):
@@ -47,7 +48,7 @@ class TestWriterGet(TestCase):
 
         header = {"HTTP_AUTHORIZATION": "Bearer {}".format(access)}
 
-        response = self.client.get(self.writer_api + "/{}".format(writer_id), **header)
+        response = self.client.get(self.writer_api + "?id={}".format(writer_id), **header)
         print(response.json())
         self.assertEqual(response.status_code, 404)
 
@@ -55,8 +56,8 @@ class TestWriterGet(TestCase):
         """token 인증 없을 경우 에러 처리"""
         writer_id = self.response.json()["id"]
 
-        response = self.client.get(self.writer_api + "/{}".format(writer_id))
-
+        response = self.client.get(self.writer_api + "?id={}".format(writer_id))
+        print(response.json())
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json()["detail"], ResponseDetail.UNAUTHORIZED_VALIDATE)
 
@@ -67,6 +68,6 @@ class TestWriterGet(TestCase):
 
         header = {"HTTP_AUTHORIZATION": "Bearer {}".format(access)}
 
-        response = self.client.get(self.writer_api + "/{}".format(writer_id), **header)
+        response = self.client.get(self.writer_api + "?id={}".format(writer_id), **header)
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json()["detail"], ResponseDetail.UNAUTHORIZED_VALIDATE)

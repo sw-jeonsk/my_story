@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from .settings import VERSION
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView
 from writer.views import WriterLogInView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -25,6 +25,7 @@ from drf_yasg import openapi
 
 schema_url_patterns = [
     path("api/{}/writer".format(VERSION), include("writer.urls")),
+    path("api/{}/diary".format(VERSION), include("diary.urls")),
     path("api/{}/login".format(VERSION), WriterLogInView.as_view(), name="login API"),
 ]
 
@@ -42,6 +43,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/{}/writer".format(VERSION), include("writer.urls"), name="Writer API"),  # 해당 라인을 추가
+    path("api/{}/diary".format(VERSION), include("diary.urls"), name="Writer API"),  # 해당 라인을 추가
     path("api/{}/login".format(VERSION), WriterLogInView.as_view(), name="token_obtain_pair"),
     path("api/{}/refresh".format(VERSION), TokenRefreshView.as_view(), name="token_refresh"),
     url(

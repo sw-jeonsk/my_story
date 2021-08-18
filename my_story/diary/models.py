@@ -17,6 +17,7 @@ class Diary(models.Model):
     title = models.CharField(_("제목"), max_length=1024)
     contents = models.TextField(_("내용"))
     created_at = models.DateField(_("생성날짜"), default=timezone.now)
+    updated_at = models.DateField(_("업데이트날짜"), default=timezone.now)
 
     class Meta:
         verbose_name = _("diary")

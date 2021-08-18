@@ -5,6 +5,8 @@ class ResponseDetail(object):
     # 200
     OK: Final = "성공"
     # 400
+    REQUIRED: Final = "이 필드는 필수 항목입니다."
+    BLANK: Final = "이 필드는 blank일 수 없습니다."
     EMAIL_REQUIRED: Final = "'email' 이 필드는 필수 항목입니다."
     NAME_REQUIRED: Final = "'name' 이 필드는 필수 항목입니다."
     PASSWORD_REQUIRED: Final = "'password' 이 필드는 필수 항목입니다."

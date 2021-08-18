@@ -39,7 +39,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_REQUIRED)
+        self.assertEqual(response.json()["detail"], ResponseDetail.REQUIRED)
 
     def test_signup_email_error(self):
         """이메일 관련 에러"""
@@ -159,7 +159,7 @@ class TestWriterSignUp(TestCase):
         )
         print(response.status_code)
         print(response.json())
-        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_REQUIRED)
+        self.assertEqual(response.json()["detail"], ResponseDetail.REQUIRED)
         self.assertEqual(response.status_code, 400)
 
     def test_signup_empty_email_error(self):
@@ -175,7 +175,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_BLANK)
+        self.assertEqual(response.json()["detail"], ResponseDetail.BLANK)
 
     def test_signup_no_password_error(self):
         """패스워드 파라미터 없을때 실패"""
@@ -188,7 +188,7 @@ class TestWriterSignUp(TestCase):
         )
         print(response.status_code)
         print(response.json())
-        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_REQUIRED)
+        self.assertEqual(response.json()["detail"], ResponseDetail.REQUIRED)
         self.assertEqual(response.status_code, 400)
 
     def test_signup_empty_password_error(self):
@@ -200,7 +200,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_BLANK)
+        self.assertEqual(response.json()["detail"], ResponseDetail.BLANK)
 
     def test_signup_no_name_error(self):
         """이름 파라미터 없을때 실패"""
@@ -214,7 +214,7 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], ResponseDetail.NAME_REQUIRED)
+        self.assertEqual(response.json()["detail"], ResponseDetail.REQUIRED)
 
     def test_signup_empty_name_error(self):
         """이름 파라미터 없을때 실패"""
@@ -229,4 +229,19 @@ class TestWriterSignUp(TestCase):
         print(response.status_code)
         print(response.json())
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], ResponseDetail.NAME_BLANK)
+        self.assertEqual(response.json()["detail"], ResponseDetail.BLANK)
+
+    def test_signup_empty_name_validate_name_error(self):
+        """이름 파라미터 없을때 실패"""
+        response = self.client.post(
+            self.signup_api,
+            {
+                "name": "",
+                "email": "qaz0169naver.com",
+                "password": "123asdfasdf!",
+            },
+        )
+        print(response.status_code)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_VALIDATE)

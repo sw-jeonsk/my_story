@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
     "name" : "jss",
-    "email" : "aaaaaa@gmail.com",
-    "password" : "ain19009!"
+    "email" : "swenginejsk@gmail.com",
+    "password" : "qaz1127!"
 
 }
 
@@ -18,7 +18,20 @@ GET http://localhost:8000/api/v1/writer/54710fe40ace468bbeb7b1be9e3b7e04
 POST http://localhost:8000/api/v1/login
 Content-Type: application/json
 
-{    "email" : "aaaaaa@gmail.com",
-    "password" : "ain19009!"
+{    "email" : "swenginejsk@gmail.com",
+    "password" : "qaz1127!"
+
+}
+
+
+###
+POST http://localhost:8000/api/v1/diary
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI5MjcxNjIwLCJqdGkiOiJhMGViNjhmMjcxZmU0YmU0ODMzZWM1MGZhYTNlMTBhMiIsInVzZXJfaWQiOiJhNmM2YmM4YjFjMDU0ZjI2ODFlNTkwM2RkNDU5NGI3NCIsIm5hbWUiOiJqc2sifQ.iwyiAqmZciQ1V_5Lyt_E04bo4tbN3LN247VG6phImq8
+Content-Type: application/json
+
+{
+"writer": "a6c6bc8b1c054f2681e5903dd4594b74",
+"title": "test",
+"contents": "test"
 
 }

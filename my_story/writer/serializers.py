@@ -1,3 +1,4 @@
+from utils.exceptions import EmailRequiredException
 from utils.response_detail import ResponseDetail
 import re
 from rest_framework import serializers  # serializer import
@@ -50,5 +51,7 @@ class WriterLoginSerializer(TokenObtainPairSerializer):
         return data
 
 
-class WriterEmailSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
+class EmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Writer
+        fields = ["email"]

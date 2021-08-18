@@ -42,13 +42,13 @@ class TestWriterLogin(TestCase):
         """이메일 파라미터 없음 에러 처리"""
         response = self.client.post(self.login_api, {"password": self.password})
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], ResponseDetail.EMAIL_REQUIRED)
+        self.assertEqual(response.json()["detail"], ResponseDetail.REQUIRED)
 
     def test_login_400_no_password(self):
         """비밀번호 파라미터 없음 에러 처리"""
         response = self.client.post(self.login_api, {"email": self.email})
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], ResponseDetail.PASSWORD_REQUIRED)
+        self.assertEqual(response.json()["detail"], ResponseDetail.REQUIRED)
 
     def test_login_401_does_not_exist_email(self):
         """없는 이메일 계정 에러 처리"""

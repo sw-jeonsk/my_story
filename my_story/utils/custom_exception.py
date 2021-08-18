@@ -14,22 +14,20 @@ def custom_exception_handler(exc, context):
     if response is not None:
         response.data["status_code"] = response.status_code
         response.data["request"] = context["request"].data
-
+        response.data["items"] = list()
         if response.status_code in [status.HTTP_400_BAD_REQUEST, status.HTTP_404_NOT_FOUND]:
             if hasattr(exc, "detail_code"):
                 response.data["detail_code"] = exc.detail_code
             else:
-                for key in response.data.keys():
-                    error_detail = (
-                        response.data[key]
-                        if type(response.data[key]) == ErrorDetail
-                        else response.data[key][0]
-                    )
-                    response.data["detail_code"] = error_detail.code
-                    if key != "detail":
-                        response.data["detail"] = "'{}' {}".format(key, error_detail)
-                        response.data.pop(key)
-                    break
+                for key, value in list(response.data.items()):
+
+                    if not key in ["detail", "status_code", "request", "items"]:
+                        error_detail = value if type(value) == ErrorDetail else value[0]
+                        if type(error_detail) == ErrorDetail:
+                            response.data["detail_code"] = error_detail.code
+                        response.data["items"].append(key)
+                        response.data["detail"] = "{}".format(error_detail)
+                        del response.data[key]
         elif response.status_code == status.HTTP_401_UNAUTHORIZED:
             # case : 로그인할때,
             # case : token이 없거나 잘못됐을때,
