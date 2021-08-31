@@ -5,5 +5,5 @@ from . import views  # views.py import
 router = routers.DefaultRouter()  # DefaultRouter 설정
 
 urlpatterns = [
-    path("", views.DiaryView.as_view({"post": "create"})),
+    path("", views.DiaryView.as_view({"post": "create", "get": "list"})),
 ]

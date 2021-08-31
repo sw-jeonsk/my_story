@@ -30,7 +30,7 @@ class TestDiary(TestCase):
             self.login_api, {"email": self.email, "password": self.password}
         )
 
-    # password 관련 에러
+    # diary 추가 성공
     def test_diary_create_200_ok(self):
         """diary 추가 진행"""
 
@@ -44,4 +44,77 @@ class TestDiary(TestCase):
 
         response = self.client.post(self.diary_api, body, **header)
         print(response.json())
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
+
+    # 권한 문제
+    def test_diary_401_no_authorization(self):
+        """diary 추가 진행"""
+
+        body = dict()
+        body["writer"] = self.response.json()["id"]
+        body["title"] = "title"
+        body["contents"] = "contents"
+
+        response = self.client.post(self.diary_api, body)
+        print(response.json())
+        self.assertEqual(response.status_code, 401)
+
+    # parameter 없을 경우
+    def test_diary_400_no_writer(self):
+        """diary 추가 진행"""
+
+        body = dict()
+        body["title"] = "title"
+        body["contents"] = "contents"
+        access = self.response.json()["access"]
+
+        header = {"HTTP_AUTHORIZATION": "Bearer {}".format(access)}
+
+        response = self.client.post(self.diary_api, body, **header)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    # parameter 없을 경우
+    def test_diary_400_no_title(self):
+        """diary 추가 진행"""
+
+        body = dict()
+        body["writer"] = self.response.json()["id"]
+        body["contents"] = "contents"
+        access = self.response.json()["access"]
+
+        header = {"HTTP_AUTHORIZATION": "Bearer {}".format(access)}
+
+        response = self.client.post(self.diary_api, body, **header)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    # parameter 없을 경우
+    def test_diary_400_no_contents(self):
+        """diary 추가 진행"""
+
+        body = dict()
+        body["writer"] = self.response.json()["id"]
+        body["title"] = "title"
+        access = self.response.json()["access"]
+
+        header = {"HTTP_AUTHORIZATION": "Bearer {}".format(access)}
+
+        response = self.client.post(self.diary_api, body, **header)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)
+
+    # parameter 없을 경우
+    def test_diary_list(self):
+        """diary 추가 진행"""
+
+        body = dict()
+        body["writer"] = self.response.json()["id"]
+        body["title"] = "title"
+        access = self.response.json()["access"]
+
+        header = {"HTTP_AUTHORIZATION": "Bearer {}".format(access)}
+
+        response = self.client.post(self.diary_api, body, **header)
+        print(response.json())
+        self.assertEqual(response.status_code, 400)

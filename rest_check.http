@@ -2,10 +2,8 @@ POST http://localhost:8000/api/v1/writer
 Content-Type: application/json
 
 {
-    "name" : "jss",
-    "email" : "swenginejsk@gmail.com",
+    "name" : "ㄴ",
     "password" : "qaz1127!"
-
 }
 
 
@@ -35,3 +33,7 @@ Content-Type: application/json
 "contents": "test"
 
 }
+
+###
+GET http://localhost:8000/api/v1/diary?id=a6c6bc8b1c054f2681e5903dd4594b74
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI5Mjg5ODY1LCJqdGkiOiI2ZTkyMmY0MzAzZDU0NDY2OTNmYTM3N2UzODZlMDY0YSIsInVzZXJfaWQiOiJhNmM2YmM4YjFjMDU0ZjI2ODFlNTkwM2RkNDU5NGI3NCIsIm5hbWUiOiJqc2sifQ.aZOUyXTWdTeisu_7KXpI4sv0yt-0yuaLpy2H5r_IXOM
