@@ -1,7 +1,5 @@
-from django.shortcuts import get_object_or_404
 from diary.models import Diary
 from rest_framework import serializers  # serializer import
-from writer.models import Writer
 
 
 class DiarySerializer(serializers.ModelSerializer):

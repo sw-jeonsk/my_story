@@ -1,7 +1,6 @@
-import re
 from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from utils.writer_manager import WriterManager
 from django.utils.translation import gettext_lazy as _
 from utils.custom_field import hex_uuid, CaseLowerEmailField

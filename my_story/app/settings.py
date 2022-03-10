@@ -191,7 +191,7 @@ SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}}
 }
 
-## CORS
+# CORS
 
 CORS_ORIGIN_WHITELIST = ["http://127.0.0.1:3000", "http://localhost:3000"]
 CORS_ALLOW_CREDENTIALS = True

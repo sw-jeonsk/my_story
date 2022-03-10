@@ -1,6 +1,5 @@
-from utils.exceptions import EmailRequiredException
-from utils.response_detail import ResponseDetail
 import re
+from utils.response_detail import ResponseDetail
 from rest_framework import serializers  # serializer import
 from .models import Writer  # 선언한 모델 import
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer

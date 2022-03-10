@@ -1,8 +1,5 @@
-from utils.response_detail import ResponseDetail
 import os
-import pdb
 from django.test import TestCase
-from writer.models import Writer
 from app.settings import VERSION
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")

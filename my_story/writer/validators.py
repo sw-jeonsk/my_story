@@ -5,7 +5,6 @@ from utils.exceptions import (
     PasswordValidateException,
 )
 from django.contrib.auth.hashers import make_password
-import pdb
 
 
 def validate_email(email):

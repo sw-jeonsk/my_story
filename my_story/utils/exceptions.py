@@ -1,4 +1,3 @@
-from os import statvfs_result
 from rest_framework.exceptions import APIException
 from .response_detail import ResponseDetail
 
@@ -8,7 +7,7 @@ class Exception(APIException):
 
     @classmethod
     def as_md(self, param=None):
-        if param == None:
+        if param is None:
             return (
                 '\n\n> **%s**\n```\n{\n\t"status_code": "%s"\n\t"detail_code": "%s"\n\t"detail": "%s"\n\t"items": []\n\t"request":{[request 데이터]}\n}\n```'
                 % (self.status_code, self.status_code, self.detail_code, self.default_detail)
@@ -24,7 +23,7 @@ class Exception(APIException):
         _data = dict()
         _data["status_code"] = self.status_code
         _data["detail_code"] = self.detail_code
-        _data["default_detail"] = self.default_detail if _detail == None else _detail
+        _data["default_detail"] = self.default_detail if _detail is None else _detail
         return _data
 
 

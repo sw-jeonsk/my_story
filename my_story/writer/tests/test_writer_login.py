@@ -1,7 +1,5 @@
 import os
-import pdb
 from django.test import TestCase
-from writer.models import Writer
 from app.settings import VERSION
 from utils.response_detail import ResponseDetail
 

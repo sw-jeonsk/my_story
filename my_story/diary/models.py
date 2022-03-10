@@ -5,6 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from utils.custom_field import hex_uuid
 
 # Create your models here.
+
+
 class Diary(models.Model):
     id = models.CharField(
         primary_key=True,

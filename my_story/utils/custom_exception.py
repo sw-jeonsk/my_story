@@ -2,7 +2,6 @@ from rest_framework.exceptions import ErrorDetail
 from rest_framework.views import exception_handler
 from rest_framework import status
 from .response_detail import ResponseDetail
-import pdb
 
 
 def custom_exception_handler(exc, context):
@@ -20,7 +19,7 @@ def custom_exception_handler(exc, context):
             else:
                 for key, value in list(response.data.items()):
 
-                    if not key in ["detail", "status_code", "request", "items"]:
+                    if key not in ["detail", "status_code", "request", "items"]:
                         error_detail = value if type(value) == ErrorDetail else value[0]
                         if type(error_detail) == ErrorDetail:
                             response.data["detail_code"] = error_detail.code

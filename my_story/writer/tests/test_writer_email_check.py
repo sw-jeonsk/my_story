@@ -1,11 +1,9 @@
 import os
 from django.test import TestCase
-from writer.models import Writer
 from app.settings import VERSION
+from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
-
-from django.core.wsgi import get_wsgi_application
 
 application = get_wsgi_application()
 

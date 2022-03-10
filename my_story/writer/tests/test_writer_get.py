@@ -1,6 +1,5 @@
 from utils.response_detail import ResponseDetail
 import os
-import pdb
 from django.test import TestCase
 from app.settings import VERSION
 
