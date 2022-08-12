@@ -13,7 +13,7 @@ class Diary(models.Model):
         unique=True,
         default=hex_uuid,
         editable=False,
-        max_length=255,
+        max_length=512,
     )
     writer = models.ForeignKey(Writer, on_delete=models.CASCADE, related_name="writer")
     title = models.CharField(_("제목"), max_length=1024)
