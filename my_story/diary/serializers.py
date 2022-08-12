@@ -7,6 +7,3 @@ class DiarySerializer(serializers.ModelSerializer):
         model = Diary
         fields = ["writer", "title", "contents"]
 
-    # def validate_writer(self, writer):
-    #     writer = get_object_or_404(Writer, pk=writer)
-    #     return writer
